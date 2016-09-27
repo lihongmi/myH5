@@ -1,0 +1,1007 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta charset="utf-8">
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <title>购物车</title>
+    <link href="themes/default/css/jquery-ui-1.10.1.custom.min.css" rel="stylesheet" />
+    <!--字体图标库-->
+    <link rel="stylesheet" href="themes/default/fonts/iconfont.css">
+    <link rel="stylesheet" href="themes/default/css/swiper-3.2.5.min.css">
+    <link rel="stylesheet" href="themes/default/css/zyUpload.css" />
+
+    <!--主样式-->
+    <link rel="stylesheet" href="themes/default/css/ectouch.css" />
+    <script type="text/javascript" src="themes/default/js/jquery-2.1.4.min.js"></script>
+</head>
+    <body class="">
+<div class="filter-top" id="scrollUp">
+    <i class="iconfont icon-jiantou"></i>
+</div>
+<div class="filter-menu">
+    <div class="filter-menu-list ts-5">
+        <ul class="dis-box">
+            <li class="box-flex position-rel">
+                <a href="index.html" class="product-div-link"></a>
+                <i class="iconfont icon-home"></i><em>首页</em>
+            </li>
+            <li class="box-flex position-rel">
+                <a href="sort.html" class="product-div-link"></a>
+                <i class="iconfont icon-caidan"></i><em>分类</em>
+            </li>
+            <li class="box-flex j-search-input position-rel">
+                <i class="iconfont icon-sousuo"></i><em>搜索</em>
+            </li>
+            <li class="box-flex filter-nenu-cart position-rel">
+                <a href="cart.html" class="product-div-link"></a>
+                <i class="iconfont icon-gouwuche"></i><em>购物车</em>
+            </li>
+            <li class="box-flex position-rel">
+                                <a href="personal.html" class="product-div-link"></a>
+                <i class="iconfont icon-geren"></i><em>我</em>
+                            </li>
+            <li class="w"></li>
+        </ul>
+    </div>
+    <div class="filter-menu-title"></div>
+</div><div class="search-div j-search-div ts-3">
+    <section class="search">
+        <form action="/mobile/index.php?r=category/index/products&" method="post" id="search-form">
+        <div class="text-all dis-box j-text-all text-all-back">
+            <a class="a-icon-back j-close-search" href="javascript:;"><i class="iconfont icon-back"></i></a>
+            <div class="box-flex input-text">
+                <label class="search-check j-search-check" data="2">
+                    <span>商品</span><i class="iconfont icon-xiajiantou"></i>
+                </label>
+                <input class="j-input-text" type="text" name="keyword" placeholder="商品/店铺搜索" />
+                <input type="hidden" name="type_select" value="2" />
+                <input type="hidden" name="isself" value="" />
+                <input type="hidden" name="brand" value="" />
+                <input type="hidden" name="price_min" value="" />
+                <input type="hidden" name="price_max" value="" />
+                <input type="hidden" name="filter_attr" value=""/>
+                <i class="iconfont icon-guanbi is-null j-is-null"></i>
+            </div>
+            <a type="button" class="btn-submit" onclick="$('#search-form').submit()">搜索</a>
+        </div>
+        </form>
+    </section>
+    <section class="search-con">
+        <div class="swiper-scroll history-search">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <p>
+                        <label class="fl">热门搜索</label>
+                    </p>
+                    <ul class="hot-search a-text-more">
+                                                <li class="w-3"><a href=""><span>周大福</span></a></li>
+                                                <li class="w-3"><a href=""><span>内衣</span></a></li>
+                                                <li class="w-3"><a href=""><span>Five Plus</span></a></li>
+                                                <li class="w-3"><a href=""><span>手机</span></a></li>
+                                            </ul>
+                    <p class="hos-search">
+                        <label class="fl">最近搜索</label>
+                        <span class="fr clear_history"><i class="iconfont icon-xiao10"></i></span>
+                    </p>
+                                        <div class="no-div-message">
+                        <p>暂无搜索记录</p>
+                    </div>
+                                    </div>
+            </div>
+        <div class="swiper-scrollbar"></div>
+        </div>
+    </section>
+    <footer class="close-search j-close-search">
+        点击关闭
+    </footer>
+</div>
+<script type="text/javascript">
+    $(function(){
+        //清除搜索记录
+        var history = "";
+        $(".clear_history").click(function(){
+            if(history && $("ul#search-con").length > 0){
+                $.get("index.php?r=category/index/clear_history", '', function(data){
+                    if(data.status){
+                        $("#search-con").remove();
+                        var no = '<div class="no-div-message"><p>暂无搜索记录</p></div>';
+                        $(".hos-search").after(no);
+                    }
+                }, 'json');
+            }
+        });
+    })
+</script>    <!--<div id="loading"><img src="themes/default/img/loading.gif" /></div>--><style>
+.div-num a{display:block; width:3rem; height:3rem; position: relative;}
+.div-num a.num-up:before,.div-num a.num-next:before,.div-num a.num-next:after{content: " "; display: block; border-bottom:1px solid #888; width:1.6rem; position: absolute; left:50%; margin-left:-.8rem; top:50%; margin-top:-1px;}
+.div-num a.num-next:after{ -moz-transform: rotate(-90deg);-webkit-transform: rotate(-90deg);-ms-transform: rotate(-90deg);-o-transform: rotate(-90deg);transform: rotate(-90deg);}
+</style>
+		<div class="con"><header class="dis-box header-menu b-color color-whie"><a class="" href="javascript:history.go(-1);"><i class="iconfont icon-back"></i></a><h3 class="box-flex">购物车</h3><a></a></header>
+			<div class="flow-cart blur-div">
+<!--  -->
+		<!-- 按店铺显示商品  start-->
+		<!--  -->
+				<section class="flow-have-cart select-three j-select-all" >
+					<section class="m-top10 j-cart-get-i-more shop1" num="1">
+						<header class="b-color-f padding-all of-hidden dis-box">
+							<div class="ect-select box-flex is-shop">
+								<label class="dis-box label-this-all active">
+									<i class="j-select-btn"></i>
+									<span class="box-flex"><a href="store.html">5+旗舰店</a></span>
+								</label>
+							</div>
+							<!--  -->
+                            <!--  -->
+						</header>
+
+						<div class="m-top1px b-color-f padding-all product-list-small">
+							<ul>
+							
+								<li>
+									<div class="g-promotion-con ts-5">
+                                                                                                                        <div class="g-promotion-con-sh m-top04">
+                                                                                    </div>
+                                        
+									</div>
+									<!--  -->
+									<div class="dis-box drop10">
+                                    <input type="hidden" class="total" price="534.4" number="1">
+										<div class="ect-select">
+											<label class="active rec-active" goods-id="163" rec-id="10">
+												<i class="j-select-btn"></i>
+											</label>
+										</div>
+										<div class="box-flex">
+											
+											<div class="product-div">
+												<div class="p-d-img fl">
+												    <a href="detail.html">
+													<img class="product-list-img" src="http://114.55.140.8/images/201512/thumb_img/163_thumb_G_1450309107382.jpg" />
+													</a>
+													<!--  -->
+												</div>
+												<div class="product-text">
+													<h4 class="onelist-hidden"><a href="detail.html">丹顿公子【都市系列】男士西裤 英伦修身休闲西装裤夏季薄款商务职业正装 黑色竖纹款 29码</a></h4>
+													<span class="t-first">¥534.40</span>
+													<p class="p-t-remark onelist-hidden">选择颜色:黑色竖纹款[¥2.20] 
+选择尺码:29[¥1.20] 
+</p>
+													<div class="div-num dis-box m-top04">
+														<a class="num-up" data-min-num="1" ></a>
+														<input class="box-flex cart-number active" type="number" name="cart_number" readonly value="1" id="163" cart-id="10" />
+														<a class="num-next" xiangounum="" data-max-num="999" ></a>
+													</div>
+												     <i class="iconfont icon-xiao10" onclick="DropCart(10,1)"></i>
+												</div>
+											</div>
+										    
+										</div>
+									</div>
+									<!--  -->
+								</li>
+								
+							</ul>
+						</div>
+					</section>
+				</section>
+	    <!--  -->
+				<section class="flow-have-cart select-three j-select-all" >
+					<section class="m-top10 j-cart-get-i-more shop0" num="1">
+						<header class="b-color-f padding-all of-hidden dis-box">
+							<div class="ect-select box-flex is-shop">
+								<label class="dis-box label-this-all active">
+									<i class="j-select-btn"></i>
+									<span class="box-flex"><a href="http://114.55.140.8/">加秒自营</a></span>
+								</label>
+							</div>
+							<!--  -->
+                            <!--  -->
+						</header>
+
+						<div class="m-top1px b-color-f padding-all product-list-small">
+							<ul>
+							
+								<li>
+									<div class="g-promotion-con ts-5">
+                                                                                                                        <div class="g-promotion-con-sh m-top04">
+                                                                                    </div>
+                                        
+									</div>
+									<!--  -->
+									<div class="dis-box drop11">
+                                    <input type="hidden" class="total" price="75" number="1">
+										<div class="ect-select">
+											<label class="active rec-active" goods-id="421" rec-id="11">
+												<i class="j-select-btn"></i>
+											</label>
+										</div>
+										<div class="box-flex">
+											
+											<div class="product-div">
+												<div class="p-d-img fl">
+												    <a href="detail.html">
+													<img class="product-list-img" src="http://114.55.140.8/images/201512/thumb_img/421_thumb_G_1450120193697.jpg" />
+													</a>
+													<!--  -->
+												</div>
+												<div class="product-text">
+													<h4 class="onelist-hidden"><a href="detail.html">轻雅多维营养代餐粉 果蔬纤维 膳食纤维 魔芋粉产品低卡纤体奶昔饱腹非左旋肉碱减肥16天量</a></h4>
+													<span class="t-first">¥75.00</span>
+													<p class="p-t-remark onelist-hidden"><em>颜</em>色:白色[¥0.00] 
+</p>
+													<div class="div-num dis-box m-top04">
+														<a class="num-up" data-min-num="1" ></a>
+														<input class="box-flex cart-number active" type="number" name="cart_number" readonly value="1" id="421" cart-id="11" />
+														<a class="num-next" xiangounum="" data-max-num="999" ></a>
+													</div>
+												     <i class="iconfont icon-xiao10" onclick="DropCart(11,0)"></i>
+												</div>
+											</div>
+										    
+										</div>
+									</div>
+									<!--  -->
+								</li>
+								
+							</ul>
+						</div>
+					</section>
+	    <!--  -->		
+		<!-- 按店铺显示商品  end-->
+					<section>
+						<section class="padding-all text-center t-remark2 ">
+							<p class="j-goodsinfo-div">推荐商品</p>
+						</section>
+						<section class="product-list j-product-list product-list-medium">
+							<ul>
+							<!--  -->
+								
+								<li>
+									<div class="product-div">
+										<a href="detail.html"><img class="product-list-img" src="http://114.55.140.8/images/201512/thumb_img/163_thumb_G_1450309107382.jpg" /></a>
+										<div class="product-text">
+                                            <a href=""><h4>丹顿公子【都市系列】男士西裤 英伦修身休闲西装裤夏季薄款商务职业正装 黑色竖纹款 29码</h4></a>
+											<p class="dis-box p-t-remark"><span class="box-flex">库存:463</span><span class="box-flex">销量:2</span></p>
+											<p><span class="p-price t-first ">
+                                                                                          ¥531.00                                                                                             <small><del>¥637.19</del></small></span></p>
+											<a onclick="addToCart(163, 0)" class="icon-flow-cart j-goods-attr fr"><i class="iconfont icon-gouwuche"></i></a>
+										</div>
+									</div>
+								</li>
+							<!--  -->
+								
+								<li>
+									<div class="product-div">
+										<a href="detail.html"><img class="product-list-img" src="http://114.55.140.8/images/201512/thumb_img/41_thumb_G_1449714991555.jpg" /></a>
+										<div class="product-text">
+                                            <a href=""><h4>恒源祥高弹修身纯棉男士纯色背心 一灰一白 L</h4></a>
+											<p class="dis-box p-t-remark"><span class="box-flex">库存:1000</span><span class="box-flex">销量:1</span></p>
+											<p><span class="p-price t-first ">
+                                                                                          ¥39.50                                                                                             <small><del>¥46.80</del></small></span></p>
+											<a onclick="addToCart(41, 0)" class="icon-flow-cart j-goods-attr fr"><i class="iconfont icon-gouwuche"></i></a>
+										</div>
+									</div>
+								</li>
+							<!--  -->
+								
+								<li>
+									<div class="product-div">
+										<a href="detail.html"><img class="product-list-img" src="http://114.55.140.8/images/201512/thumb_img/7_thumb_G_1450120026360.jpg" /></a>
+										<div class="product-text">
+                                            <a href=""><h4>媞沫 2014夏装新品女装 宽松假两件蝙蝠短袖印花雪纺衫 粉色 S</h4></a>
+											<p class="dis-box p-t-remark"><span class="box-flex">库存:977</span><span class="box-flex">销量:4</span></p>
+											<p><span class="p-price t-first ">
+                                                                                          ¥59.00                                                                                             <small><del>¥70.80</del></small></span></p>
+											<a onclick="addToCart(7, 0)" class="icon-flow-cart j-goods-attr fr"><i class="iconfont icon-gouwuche"></i></a>
+										</div>
+									</div>
+								</li>
+							<!--  -->
+								
+								<li>
+									<div class="product-div">
+										<a href="detail.html"><img class="product-list-img" src="http://114.55.140.8/images/201407/thumb_img/63_thumb_G_1405019498616.jpg" /></a>
+										<div class="product-text">
+                                            <a href=""><h4>周大福 合二唯一 绚丽蝴蝶 铂金黄金吊坠OMS PT153693</h4></a>
+											<p class="dis-box p-t-remark"><span class="box-flex">库存:0</span><span class="box-flex">销量:1</span></p>
+											<p><span class="p-price t-first ">
+                                                                                          ¥1170.00                                                                                             <small><del>¥1404.00</del></small></span></p>
+											<a onclick="addToCart(63, 0)" class="icon-flow-cart j-goods-attr fr"><i class="iconfont icon-gouwuche"></i></a>
+										</div>
+									</div>
+								</li>
+							<!--  -->
+								
+								<li>
+									<div class="product-div">
+										<a href=""><img class="product-list-img" src="http://114.55.140.8/images/201508/thumb_img/225_thumb_G_1439333685015.jpg" /></a>
+										<div class="product-text">
+                                            <a href=""><h4>思莱德SELECTED男士纯棉波点印花牛仔衬衫F|414204022 浅蓝</h4></a>
+											<p class="dis-box p-t-remark"><span class="box-flex">库存:1000</span><span class="box-flex">销量:10</span></p>
+											<p><span class="p-price t-first ">
+                                                                                          ¥305.00                                                                                             <small><del>¥366.00</del></small></span></p>
+											<a onclick="addToCart(225, 0)" class="icon-flow-cart j-goods-attr fr"><i class="iconfont icon-gouwuche"></i></a>
+										</div>
+									</div>
+								</li>
+							<!--  -->
+								
+								<li>
+									<div class="product-div">
+										<a href="detail.html"><img class="product-list-img" src="http://114.55.140.8/images/201512/thumb_img/169_thumb_G_1450119531720.jpg" /></a>
+										<div class="product-text">
+                                            <a href=""><h4>摩范生MOFASHION 2014秋装新款贡缎撞小灰格假领结长袖衬衫 男士商务修身衬衣 贡缎撞小灰格白色</h4></a>
+											<p class="dis-box p-t-remark"><span class="box-flex">库存:942</span><span class="box-flex">销量:1</span></p>
+											<p><span class="p-price t-first ">
+                                                                                          ¥214.00                                                                                             <small><del>¥154.79</del></small></span></p>
+											<a onclick="addToCart(169, 0)" class="icon-flow-cart j-goods-attr fr"><i class="iconfont icon-gouwuche"></i></a>
+										</div>
+									</div>
+								</li>
+							<!--  -->
+								
+								<li>
+									<div class="product-div">
+										<a href="detail.html"><img class="product-list-img" src="http://114.55.140.8/images/201512/thumb_img/150_thumb_G_1450122271239.jpg" /></a>
+										<div class="product-text">
+                                            <a href=""><h4>国为（couvezi） 私影VG28052 视频眼镜播放器 移动视频影院</h4></a>
+											<p class="dis-box p-t-remark"><span class="box-flex">库存:863</span><span class="box-flex">销量:1</span></p>
+											<p><span class="p-price t-first ">
+                                                                                          ¥10.00                                                                                             <small><del>¥12.00</del></small></span></p>
+											<a onclick="addToCart(150, 0)" class="icon-flow-cart j-goods-attr fr"><i class="iconfont icon-gouwuche"></i></a>
+										</div>
+									</div>
+								</li>
+							<!--  -->
+								
+								<li>
+									<div class="product-div">
+										<a href="detail.html"><img class="product-list-img" src="http://114.55.140.8/images/201512/thumb_img/235_thumb_G_1450054964197.jpg" /></a>
+										<div class="product-text">
+                                            <a href=""><h4>2015春秋装修身型潮男士休闲韩版小西装男版单西服男上衣春秋季青年外套 卡其色1625 L(100-120斤)</h4></a>
+											<p class="dis-box p-t-remark"><span class="box-flex">库存:200</span><span class="box-flex">销量:20</span></p>
+											<p><span class="p-price t-first ">
+                                                                                          ¥1300.00                                                                                             <small><del>¥6.00</del></small></span></p>
+											<a onclick="addToCart(235, 0)" class="icon-flow-cart j-goods-attr fr"><i class="iconfont icon-gouwuche"></i></a>
+										</div>
+									</div>
+								</li>
+							<!--  -->
+								
+								<li>
+									<div class="product-div">
+										<a href="detail.html"><img class="product-list-img" src="http://114.55.140.8/images/201407/thumb_img/1_thumb_G_1404770699941.jpg" /></a>
+										<div class="product-text">
+                                            <a href=""><h4>圣贤教育 改变命运 1-5集高清6张DVD9（传统文化论坛）</h4></a>
+											<p class="dis-box p-t-remark"><span class="box-flex">库存:992</span><span class="box-flex">销量:1</span></p>
+											<p><span class="p-price t-first ">
+                                                                                          ¥11.10                                                                                             <small><del>¥15.00</del></small></span></p>
+											<a onclick="addToCart(1, 0)" class="icon-flow-cart j-goods-attr fr"><i class="iconfont icon-gouwuche"></i></a>
+										</div>
+									</div>
+								</li>
+							<!--  -->
+								
+								<li>
+									<div class="product-div">
+										<a href="detail.html"><img class="product-list-img" src="http://114.55.140.8/images/201512/thumb_img/146_thumb_G_1450288301351.jpg" /></a>
+										<div class="product-text">
+                                            <a href=""><h4>佳明（GARMIN） vivofit彩色替换带 粉色青色黄色替换包L号</h4></a>
+											<p class="dis-box p-t-remark"><span class="box-flex">库存:996</span><span class="box-flex">销量:0</span></p>
+											<p><span class="p-price t-first ">
+                                                                                          ¥150.00                                                                                             <small><del>¥180.00</del></small></span></p>
+											<a onclick="addToCart(146, 0)" class="icon-flow-cart j-goods-attr fr"><i class="iconfont icon-gouwuche"></i></a>
+										</div>
+									</div>
+								</li>
+							<!--  -->
+								
+								<li>
+									<div class="product-div">
+										<a href="detail.html"><img class="product-list-img" src="http://114.55.140.8/images/201512/thumb_img/236_thumb_G_1449629120162.jpg" /></a>
+										<div class="product-text">
+                                            <a href=""><h4>富咖 2015秋冬款小西装 男休闲韩版免烫男士小西服时尚修身条纹外套 男潮 黑色 XXXL/185</h4></a>
+											<p class="dis-box p-t-remark"><span class="box-flex">库存:911</span><span class="box-flex">销量:3</span></p>
+											<p><span class="p-price t-first ">
+                                                                                          ¥300.00                                                                                             <small><del>¥720.00</del></small></span></p>
+											<a onclick="addToCart(236, 0)" class="icon-flow-cart j-goods-attr fr"><i class="iconfont icon-gouwuche"></i></a>
+										</div>
+									</div>
+								</li>
+							<!--  -->
+								
+								<li>
+									<div class="product-div">
+										<a href="detail.html"><img class="product-list-img" src="http://114.55.140.8/images/201512/thumb_img/159_thumb_G_1449714640279.jpg" /></a>
+										<div class="product-text">
+                                            <a href=""><h4>丹顿公子【都市系列】男士西裤 英伦修身休闲西装裤夏季薄款商务职业正装 黑色斜纹薄款</h4></a>
+											<p class="dis-box p-t-remark"><span class="box-flex">库存:1090</span><span class="box-flex">销量:1</span></p>
+											<p><span class="p-price t-first ">
+                                                                                          ¥89.00                                                                                             <small><del>¥374.00</del></small></span></p>
+											<a onclick="addToCart(159, 0)" class="icon-flow-cart j-goods-attr fr"><i class="iconfont icon-gouwuche"></i></a>
+										</div>
+									</div>
+								</li>
+							<!--  -->
+							</ul>
+						</section>
+					</section>
+				</section>
+
+			</div>
+		</div>
+		<!--领取优惠券star-->
+		<div class="show-goods-coupon j-filter-show-div ts-3 b-color-1">
+			<section class="goods-show-title of-hidden  padding-all b-color-f">
+				<h3 class="fl g-c-title-h3">领取店铺优惠券 (<span class="bonus-number">0</span>)</h3>
+				<i class="iconfont icon-guanbi1 show-div-guanbi fr"></i>
+			</section>
+			<!-- 优惠卷 -->
+			<section class="goods-show-con padding-all swiper-scroll swiper-container-vertical swiper-container-free-mode" id="goods-show-con">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide swiper-slide-active cart-bonus">
+
+                    </div>
+                </div><div class="swiper-scrollbar"></div>
+
+            </section>
+
+			<!-- end/优惠卷  -->
+		</div>
+        <div class="mask-filter-div"></div>
+		<!--领取优惠券end-->
+
+
+
+
+		<!--悬浮btn star-->
+		<section class="filter-btn f-cart-filter-btn dis-box">
+			<div class="box-flex select-three j-cart-get-more j-get-more-all">
+				<div class="ect-select">
+					<label class="dis-box label-all active">
+						<i class="select-btn"></i>
+						<span class="box-flex">全选</span></span>
+					</label>
+				</div>
+				<div class="g-cart-filter-price of-hidden">
+					<p class="dis-box"><em class="dis-block">合计：</em>
+					  <span class="t-first box-flex onelist-hidden cart-price-show"></span>
+					  <span class="t-first box-flex onelist-hidden cart-price-hidden" style="display:none"></span>
+					</p>
+					<p class="t-remark">不含运费</p>
+				</div>
+			</div>
+			<div class="g-cart-filter-sb">
+				<span class="span-bianji fl"><i class="iconfont icon-bianji1"></i><em>编辑</em></span>
+                <form id="formid" action="/mobile/index.php?r=flow" class="fl" method="post" >
+                <input type="hidden" name="cart_value" value="">
+				<a  type="button" class="btn-submit fl" onclick="c_value()">结算 (<span class='cart-number-show'>2</span>)</a>
+                </form>
+            </div>
+			<div class="g-cart-filter-bj">
+				<span class="heart j-heart fl"><i class="ts-2"></i><em class="ts-2">收藏</em></span>
+				<a type="button" class="btn-default j-btn-default fl">返回</a>
+				<a type="button" class="btn-submit fl delete">删除</a>
+			</div>
+		</section>
+        <input type="hidden" name="warehouse_id" value="2">
+        <input type="hidden" name="area_id" value="18">
+<!--  -->
+		<!--引用js-->
+        <div class="search-div j-search-div ts-3">
+    <section class="search">
+        <form action="index.php?r=category/index/products&" method="post" id="search-form">
+        <div class="text-all dis-box j-text-all text-all-back">
+            <a class="a-icon-back j-close-search" href="javascript:;"><i class="iconfont icon-back"></i></a>
+            <div class="box-flex input-text">
+                <label class="search-check j-search-check" data="2">
+                    <span>商品</span><i class="iconfont icon-xiajiantou"></i>
+                </label>
+                <input class="j-input-text" type="text" name="keyword" placeholder="商品/店铺搜索" />
+                <input type="hidden" name="type_select" value="2" />
+                <input type="hidden" name="isself" value="" />
+                <input type="hidden" name="brand" value="" />
+                <input type="hidden" name="price_min" value="" />
+                <input type="hidden" name="price_max" value="" />
+                <input type="hidden" name="filter_attr" value=""/>
+                <i class="iconfont icon-guanbi is-null j-is-null"></i>
+            </div>
+            <a type="button" class="btn-submit" onclick="$('#search-form').submit()">搜索</a>
+        </div>
+        </form>
+    </section>
+    <section class="search-con">
+        <div class="swiper-scroll history-search">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <p>
+                        <label class="fl">热门搜索</label>
+                    </p>
+                    <ul class="hot-search a-text-more">
+                                                <li class="w-3"><a href=""><span>周大福</span></a></li>
+                                                <li class="w-3"><a href=""><span>内衣</span></a></li>
+                                                <li class="w-3"><a href=""><span>Five Plus</span></a></li>
+                                                <li class="w-3"><a href=""><span>手机</span></a></li>
+                                            </ul>
+                    <p class="hos-search">
+                        <label class="fl">最近搜索</label>
+                        <span class="fr clear_history"><i class="iconfont icon-xiao10"></i></span>
+                    </p>
+                                        <div class="no-div-message">
+                        <p>暂无搜索记录</p>
+                    </div>
+                                    </div>
+            </div>
+        <div class="swiper-scrollbar"></div>
+        </div>
+    </section>
+    <footer class="close-search j-close-search">
+        点击关闭
+    </footer>
+</div>
+<script type="text/javascript">
+    $(function(){
+        //清除搜索记录
+        var history = "";
+        $(".clear_history").click(function(){
+            if(history && $("ul#search-con").length > 0){
+                $.get("index.php?r=category/index/clear_history", '', function(data){
+                    if(data.status){
+                        $("#search-con").remove();
+                        var no = '<div class="no-div-message"><p>暂无搜索记录</p></div>';
+                        $(".hos-search").after(no);
+                    }
+                }, 'json');
+            }
+        });
+    })
+</script>		<script type="text/javascript" src="themes/default/js/swiper-3.2.5.min.js"></script>
+<script type="text/javascript" src="themes/default/js/layer.js"></script>
+<script type="text/javascript" src="themes/default/js/ectouch.js"></script>		<script type="text/javascript" src="data/assets/script/jquery.json.js"></script>
+		<script type="text/javascript" src="data/assets/script/main/common.js"></script>
+        <script type="text/javascript" src="data/assets/script/template.js"></script>
+        <script>
+            var currency_format = '¥';
+            function attrprice(id){
+                var attr = '';
+                $("label.ts-1"+id).each(function() {
+                    if ($(this).hasClass("active")) {
+                        attr += $(this).attr("attr-id")+',';
+                    }
+                })
+                attr = attr.substr(0,attr.length-1);
+                var number = $("input[name=number"+id+"]").val();
+                var warehouse_id = $("input[name=warehouse_id]").val();
+                var area_id = $("input[name=area_id]").val();
+                $.get('http://114.55.140.8/index.php?r=goods/index/price',{id:id,warehouse_id:warehouse_id,area_id:area_id,number:number,attr:attr},function(data){
+                    $(".goods_attr_num"+id).text(data.attr_number);
+                    $("#ECS_GOODS_AMOUNT"+id).text(data.result);
+                    if(data.attr_number < 1){
+                       $(".add-to-cart"+id).hide();
+                       $(".quehuo"+id).show();
+                    }else{
+                       $(".add-to-cart"+id).show();
+                       $(".quehuo"+id).hide();
+                    }
+                },'json')
+
+            }
+            function show(html){
+                $(".mask-filter-div").addClass("show");
+                $(".j-show-goods-attr"+html).addClass("show");
+            }
+
+
+            function c_value(){
+                var id='';
+                $("label").each(function (){
+                    if($(this).hasClass("rec-active")){
+                        if($(this).hasClass("active")) {
+                            id += $(this).attr("rec-id") + ',';
+                        }
+                    }
+                 })
+                if(id==''){
+                    d_messages('至少选中一个商品', 2);
+                    return false;
+                }
+                id = id.substr(0,id.length-1);
+                $("input[name=cart_value]").val(id);
+                document.getElementById("formid").submit();
+            }
+            //加载
+             var price = 0;
+             var k = 0;
+             $(".total").each(function(){
+                     price  += $(this).attr("price")*1;
+
+             })
+            $(".cart-price-show").text(currency_format+price.toFixed(2));
+            //删除
+            function DropCart(id,sid){
+                var shopnum = $(".shop"+sid).attr("num");
+                $.get('http://114.55.140.8/index.php?r=cart/index/delete_cart',{id:id},function(data){
+                },'json');
+                if(shopnum-1<1){
+                   $(".shop"+sid).html("");
+                       window.location.href="http://114.55.140.8/index.php?r=cart/index";
+                }else{
+                    shopnum = shopnum -1;
+                    $(".shop"+sid).attr("num",shopnum);
+                }
+                $(".drop"+id).html("");
+                var price = 0;
+                var k = 0;
+                $(".total").each(function(){
+                    price  += $(this).attr("price")*1;
+                })
+                $(".cart-number").each(function(){
+                    k  += $(this).val()*1;
+                })
+                $(".cart-number-show").text(k);
+                $(".cart-price-show").text(currency_format+price.toFixed(2));
+                d_messages('已删除');
+             }
+            var heartstatus = 1;
+            $(".heart").click(function (){
+                var id = '';
+                $("label").each(function (){
+                    id += $(this).attr("goods-id")+',';
+                })
+                $.get('http://114.55.140.8/index.php?r=cart/index/heart',{id:id,status:heartstatus},function(data){
+                    heartstatus++;
+                    if(data.error==1){
+                        $(".heart").addClass("active");
+                    }else if(data.error==2){
+                        $(".heart").removeClass("active");
+                    }
+                    if(data.error>0){
+                        d_messages(data.msg);
+                    }else {
+                        layer.open({
+                            content: '请登录后关注',
+                            btn: ['立即登录', '取消'],
+                            shadeClose: false,
+                            yes: function () {
+                                window.location.href = 'http://114.55.140.8/index.php?r=user/login';
+                            },
+                            no: function () {
+                            }
+                        });
+                    }
+                },'json')
+            })
+            $(".delete").click(function (){
+                var id='';
+                $("label").each(function (){
+                    if($(this).hasClass("rec-active")){
+                        if($(this).hasClass("active")) {
+                            id += $(this).attr("rec-id") + ',';
+                        }
+                    }
+                })
+                if(id==''){
+                    d_messages('至少选中一个商品', 2);
+                    return false;
+                }
+                $.get('index.php?r=cart/index/drop_goods',{id:id},function(data){
+
+                },'json')
+                window.location.href="http://114.55.140.8/index.php?r=cart/index";
+            })
+        //弹出优惠券
+        /*-*/
+        $(".j-goods-coupon").click(function() {
+          document.addEventListener("touchmove", handler, false);
+            var ru_id = $(this).attr("ru-id");
+            $.ajax({type: "POST",url: "http://114.55.140.8/index.php?r=cart/index/cart_bonus",data: {ru_id:ru_id}, dataType:"json", async:false, success:
+                    function(data){
+                        if(data.data!=0){
+                            $(".cart-bonus").html(data.data);
+                            $(".bonus-number").text(data.number);
+                            $(".mask-filter-div").addClass("show");
+                            $(".show-goods-coupon").addClass("show");
+                        }
+                    }});
+            swiper_scroll();
+        });
+        /*-*/
+		$(".div-num a").click(function() {
+			if (!$(this).parent(".div-num").hasClass("div-num-disabled")) {
+                var t = $(this);
+				if ($(this).hasClass("num-up")) {
+					  
+						num = parseInt($(this).siblings("input").val());
+						min_num = parseInt($(this).attr("data-min-num"));
+						rec      = parseInt($(this).siblings("input").attr("cart-id"));
+						if (num > min_num) {
+							num -= 1;
+							$(this).siblings("input").val(num);
+							if($(this).siblings("input").hasClass("active")){
+                                none = 0;
+                            }else{
+                                none = 1;
+                            }
+                            var arr = '';
+                            $(".rec-active").each(function(){
+                                if($(this).hasClass("active")) {
+                                    arr += $(this).attr("rec-id")+',';
+                                }
+                            })
+                            $.ajax({
+								    type: "POST",
+								    url: "http://114.55.140.8/index.php?r=cart/index/cart_goods_number", 
+								    dataType:"json",
+								    data: {id:rec,number:num,arr:arr,none:none},
+								    success: function(data){
+                                        if(data.none>0){
+                                            return;
+                                        }
+								    	if(data.error){
+								    		d_messages(data.msg);
+								    		return;
+									    }
+								    	var number=0;
+								    	$(".cart-number").each(function(){
+                                            if($(this).hasClass("active")) {
+                                                number += $(this).val() * 1;
+                                            }
+									    })
+                                        if(number>data.max_number){
+                                            number = data.max_number;
+                                        }
+									    $(".cart-number-show").text(number);
+                                        $(".cart-price-show") .text(data.content);
+                                        $(".cart-price-hidden") .text(data.content);
+								    	
+								    }});
+
+					} else {
+						d_messages("不能小于最小数量");
+					}
+					return false;
+				}
+				if ($(this).hasClass("num-next")) {
+					num = parseInt($(this).siblings("input").val());
+                    max_num = parseInt($(this).attr("data-max-num"));
+					max_num = parseInt($(this).attr("data-max-num"));
+                    xiangounum = parseInt($(this).attr("xiangounum"));
+                    if(xiangounum){
+                        if(num>=xiangounum){
+                           d_messages('不能超过限购');
+                           return;
+                        }
+                    }
+					rec      = parseInt($(this).siblings("input").attr("cart-id"));
+                    //限购
+					if (num < max_num) {
+						num += 1;
+						$(this).siblings("input").val(num);
+                        $(this).siblings("input").val(num);
+                        if($(this).siblings("input").hasClass("active")){
+                            none = 0;
+                        }else{
+                            none = 1;
+                        }
+                        var arr = '';
+                        $(".rec-active").each(function(){
+                            if($(this).hasClass("active")) {
+                                arr += $(this).attr("rec-id")+',';
+                            }
+                        })
+						$.ajax({
+						    type: "POST",
+						    url: "http://114.55.140.8/index.php?r=cart/index/cart_goods_number", 
+						    dataType:"json",
+						    data: {id:rec,number:num,arr:arr,none:none},
+						    success: function(data){
+
+                                if(data.none>0){
+                                    return;
+                                }
+						    	if(data.error){
+						    		d_messages(data.msg);
+                                    t.siblings("input").val(data.num);
+						    		return;
+							    }
+                                t.attr("data-max-num",data.max_number);
+						    	var number=0;
+						    	$(".cart-number").each(function(){
+                                    if($(this).hasClass("active")) {
+                                        number+=$(this).val()*1;
+                                    }
+								})
+                                if(number>data.max_number){
+                                    number = data.max_number;
+                                }
+							    $(".cart-number-show").text(number);
+						    	$(".cart-price-show") .text(data.content);
+						    	$(".cart-price-hidden") .text(data.content);
+						    }});
+
+					} else {
+						d_messages("不能大超过最大数量");
+					}
+					return false;
+				}
+			} else {
+				d_messages("该商品不能增减");
+			}
+		});
+            $(".div-num a").click(function() {
+                if (!$(this).parent(".div-num").hasClass("div-num-disabled")) {
+                    if ($(this).hasClass("num-less")) {
+                        num = parseInt($(this).siblings("input").val());
+                        min_num = parseInt($(this).attr("data-min-num"));
+                        if (num > min_num) {
+                            num -= 1;
+                            $(this).siblings("input").val(num);
+                        } else {
+                            d_messages("不能小于最小数量");
+                        }
+                        return false;
+                    }
+                    if ($(this).hasClass("num-plus")) {
+                        num = parseInt($(this).siblings("input").val());
+                        max_num = parseInt($(this).attr("data-max-num"));
+                        if (num < max_num) {
+                            num += 1;
+                            $(this).siblings("input").val(num);
+                        } else {
+                            d_messages("不能大超过最大数量");
+                        }
+                        return false;
+                    }
+                } else {
+                    d_messages("该商品不能增减");
+                }
+            });
+            $(".div-num input").bind("change", function() {
+                num = parseInt($(this).val());
+                max_num = parseInt($(this).siblings(".num-plus").attr("data-max-num"));
+                min_num = parseInt($(this).siblings(".num-less").attr("data-min-num"));
+                if (num > max_num) {
+                    $(this).val(max_num);
+                    d_messages("不能大超过最大数量");
+                    return false;
+                }
+                if (num < min_num) {
+                    $(this).val(min_num);
+                    d_messages("不能小于最小数量");
+                    return false;
+                }
+            });
+            /*多选*/
+            $(".j-cart-get-more .ect-select").click(function() {
+                if (!$(this).find("label").hasClass("active")) {
+                    $(this).find("label").addClass("active");
+                    $("input[name=cart_number]").addClass("active");
+                    if ($(this).find("label").hasClass("label-all")) {
+                        $(".j-select-all").find(".ect-select label").addClass("active");
+                        /*hu*/
+                        var rec_id = '';
+                        $(".rec-active").each(function(){
+                            var goods_id = $(this).attr("goods-id");
+                            if ($(this).hasClass("active")) {
+
+                                if($(this).attr("rec-id")!=undefined && $(this).attr("rec-id")>0){
+                                    rec_id+=$(this).attr("rec-id")+',';
+                                    $("#"+goods_id+"").addClass("active");
+                                }
+                            }
+                        });
+                        $.ajax({
+                            type: "POST",
+                            url: "index.php?r=cart/index/cart_label_count",
+                            data: {id:rec_id},
+                            dataType:"json",
+                            success: function(data){
+                                $(".cart-number-show").text(data.cart_number);
+                                $(".cart-price-show") .text(data.content);
+
+                            }});
+                        /*hu*/
+
+
+                    }
+                } else {
+                    $(this).find("label").removeClass("active");
+                    $("input[name=cart_number]").removeClass("active");
+                    if ($(this).find("label").hasClass("label-all")) {
+                        /*hu*/
+                        $(".cart-price-show").text("￥0.00");
+                        $(".cart-number-show").text(0);
+                        /*hu*/
+                        $(".j-select-all").find(".ect-select label").removeClass("active");
+                    }
+                }
+            });
+            /*多选只点击单选按钮 - 全选，全不选*/
+            $(".j-cart-get-i-more .j-select-btn").click(function() {
+                if ($(this).parents(".ect-select").hasClass("j-flowcoupon-select-disab")) {
+                    d_messages("同商家只能选择一个", 2);
+                } else {
+                    is_select_all = true;
+                    if ($(this).parent("label").hasClass("label-this-all")) {
+                        if (!$(this).parent("label").hasClass("active")) {
+                            $(this).parents(".j-cart-get-i-more").find(".ect-select label").addClass("active");
+                        } else {
+                            $(this).parents(".j-cart-get-i-more").find(".ect-select label").removeClass("active");
+                        }
+                    }
+
+                    if (!$(this).parent("label").hasClass("label-this-all") && !$(this).parent("label").hasClass("label-all")) {
+                        $(this).parent("label").toggleClass("active");
+                        is_select_this_all = true;
+                        select_this_all = $(this).parents(".j-cart-get-i-more").find(".ect-select label").not(".label-this-all");
+
+                        select_this_all.each(function() {
+                            if (!$(this).hasClass("active")) {
+                                is_select_this_all = false;
+                                return false;
+                            }
+                        })
+                        if (is_select_this_all) {
+                            $(this).parents(".j-cart-get-i-more").find(".label-this-all").addClass("active");
+                        } else {
+                            $(this).parents(".j-cart-get-i-more").find(".label-this-all").removeClass("active");
+                        }
+                    }
+
+                    var select_all = $(".j-select-all").find(".ect-select label");
+                    select_all.each(function() {
+                        if (!$(this).hasClass("active")) {
+                            is_select_all = false;
+                            return false;
+                        }
+                    });
+                    if (is_select_all) {
+                        $(".label-all").addClass("active");
+                    } else {
+                        $(".label-all").removeClass("active");
+                    }
+                }
+                /*hu*/
+                var rec_id = '';
+                $(".rec-active").each(function(){
+                    var goods_id = $(this).attr("goods-id");
+                    if ($(this).hasClass("active")) {
+
+                        if($(this).attr("rec-id")!=undefined && $(this).attr("rec-id")>0){
+                            rec_id+=$(this).attr("rec-id")+',';
+                            $("#"+goods_id+"").addClass("active");
+                        }
+                    }else{
+                        $("#"+goods_id+"").removeClass("active");
+                    }
+                });
+                $.ajax({
+                    type: "POST",
+                    url: "index.php?r=cart/index/cart_label_count",
+                    data: {id:rec_id},
+                    dataType:"json",
+                    success: function(data){
+                        $(".cart-number-show").text(data.cart_number);
+                        $(".cart-price-show") .text(data.content);
+                        $(".cart-price-hidden") .text(data.content);
+
+                    }});
+                /*hu*/
+            });
+            /*店铺信息商品滚动*/
+            var swiper = new Swiper('.j-f-n-c-prolist', {
+                scrollbarHide: true,
+                slidesPerView: 'auto',
+                centeredSlides: false,
+                grabCursor: true
+            });
+		</script>
+	</body>
+
+</html>

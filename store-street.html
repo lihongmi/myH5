@@ -1,0 +1,562 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta charset="utf-8">
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <title>店铺街</title>
+    <link href="themes/default/css/jquery-ui-1.10.1.custom.min.css" rel="stylesheet" />
+    <!--字体图标库-->
+    <link rel="stylesheet" href="themes/default/fonts/iconfont.css">
+    <link rel="stylesheet" href="themes/default/css/swiper-3.2.5.min.css">
+    <link rel="stylesheet" href="themes/default/css/zyUpload.css" />
+
+    <!--主样式-->
+    <link rel="stylesheet" href="themes/default/css/ectouch.css" />
+    <script type="text/javascript" src="themes/default/js/jquery-2.1.4.min.js"></script>
+</head>
+    <body class="">
+<div class="filter-top" id="scrollUp">
+    <i class="iconfont icon-jiantou"></i>
+</div>
+<div class="filter-menu">
+    <div class="filter-menu-list ts-5">
+        <ul class="dis-box">
+            <li class="box-flex position-rel">
+                <a href="index.html" class="product-div-link"></a>
+                <i class="iconfont icon-home"></i><em>首页</em>
+            </li>
+            <li class="box-flex position-rel">
+                <a href="sort.html" class="product-div-link"></a>
+                <i class="iconfont icon-caidan"></i><em>分类</em>
+            </li>
+            <li class="box-flex j-search-input position-rel">
+                <i class="iconfont icon-sousuo"></i><em>搜索</em>
+            </li>
+            <li class="box-flex filter-nenu-cart position-rel">
+                <a href="cart.html" class="product-div-link"></a>
+                <i class="iconfont icon-gouwuche"></i><em>购物车</em>
+            </li>
+            <li class="box-flex position-rel">
+                                <a href="personal.html" class="product-div-link"></a>
+                <i class="iconfont icon-geren"></i><em>我</em>
+                            </li>
+            <li class="w"></li>
+        </ul>
+    </div>
+    <div class="filter-menu-title"></div>
+</div><div class="search-div j-search-div ts-3">
+    <section class="search">
+        <form action="/mobile/index.php?r=category/index/products&" method="post" id="search-form">
+        <div class="text-all dis-box j-text-all text-all-back">
+            <a class="a-icon-back j-close-search" href="javascript:;"><i class="iconfont icon-back"></i></a>
+            <div class="box-flex input-text">
+                <label class="search-check j-search-check" data="2">
+                    <span>商品</span><i class="iconfont icon-xiajiantou"></i>
+                </label>
+                <input class="j-input-text" type="text" name="keyword" placeholder="商品/店铺搜索" />
+                <input type="hidden" name="type_select" value="2" />
+                <input type="hidden" name="isself" value="" />
+                <input type="hidden" name="brand" value="" />
+                <input type="hidden" name="price_min" value="" />
+                <input type="hidden" name="price_max" value="" />
+                <input type="hidden" name="filter_attr" value=""/>
+                <i class="iconfont icon-guanbi is-null j-is-null"></i>
+            </div>
+            <a type="button" class="btn-submit" onclick="$('#search-form').submit()">搜索</a>
+        </div>
+        </form>
+    </section>
+    <section class="search-con">
+        <div class="swiper-scroll history-search">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <p>
+                        <label class="fl">热门搜索</label>
+                    </p>
+                    <ul class="hot-search a-text-more">
+                                                <li class="w-3"><a href=""><span>周大福</span></a></li>
+                                                <li class="w-3"><a href=""><span>内衣</span></a></li>
+                                                <li class="w-3"><a href=""><span>Five Plus</span></a></li>
+                                                <li class="w-3"><a href=""><span>手机</span></a></li>
+                                            </ul>
+                    <p class="hos-search">
+                        <label class="fl">最近搜索</label>
+                        <span class="fr clear_history"><i class="iconfont icon-xiao10"></i></span>
+                    </p>
+                                        <div class="no-div-message">
+                        <p>暂无搜索记录</p>
+                    </div>
+                                    </div>
+            </div>
+        <div class="swiper-scrollbar"></div>
+        </div>
+    </section>
+    <footer class="close-search j-close-search">
+        点击关闭
+    </footer>
+</div>
+<script type="text/javascript">
+    $(function(){
+        //清除搜索记录
+        var history = "";
+        $(".clear_history").click(function(){
+            if(history && $("ul#search-con").length > 0){
+                $.get("index.php?r=category/index/clear_history", '', function(data){
+                    if(data.status){
+                        $("#search-con").remove();
+                        var no = '<div class="no-div-message"><p>暂无搜索记录</p></div>';
+                        $(".hos-search").after(no);
+                    }
+                }, 'json');
+            }
+        });
+    })
+</script>    <!--<div id="loading"><img src="themes/default/img/loading.gif" /></div>--><div class="con"  >
+    <div class="shopping-list j-shopping-list">
+        <div class="goods-photo goods-photo-auto" >
+            <span class="goods-num" style="display:none" id="goods-num"><span id="g-active-num"></span>/<span id="g-all-num"></span></span>
+            <div class="swiper-wrapper">
+                <li class="swiper-slide tb-lr-center"><img src="themes/default/img/shopplist_1.png" /></li>
+            </div>
+            <!-- Add Pagination -->
+            <div class="swiper-pagination"></div>
+        </div>
+        <div class="shopping-menu j-shopping-menu">
+            <a class="shopping-menu-close j-shopping-menu-close"></a>
+            <div class="dis-box b-color-f">
+                <nav class="shopping-list-nav box-flex">
+                    <ul class="swiper-wrapper">
+
+                        <!--  -->
+                        <li class="div1 swiper-slide" category="1">图书音像</li>
+                        <!--  -->
+                        <li class="div3 swiper-slide" category="3">手机数码</li>
+                        <!--  -->
+                        <li class="div4 swiper-slide" category="4">电脑办公</li>
+                        <!--  -->
+                        <li class="div5 swiper-slide" category="5">家居家纺</li>
+                        <!--  -->
+                        <li class="div6 swiper-slide" category="6">男装女装</li>
+                        <!--  -->
+                        <li class="div8 swiper-slide" category="8">鞋靴箱包</li>
+                        <!--  -->
+                        <li class="div11 swiper-slide" category="11">母婴玩具</li>
+                        <!--  -->
+                        <li class="div12 swiper-slide" category="12">食品酒水</li>
+                        <!--  -->
+                        <li class="div858 swiper-slide" category="858">家用电器</li>
+                        <!--  -->
+                        <li class="div864 swiper-slide" category="864">腕表珠宝</li>
+                        <!--  -->
+                        <li class="div863 swiper-slide" category="863">保健器械</li>
+                        <!--  -->
+                        <li class="div860 swiper-slide" category="860">个人化妆</li>
+                        <!--  -->
+                        <li class="div861 swiper-slide" category="861">汽车汽配</li>
+                        <!--  -->
+                        <li class="div865 swiper-slide" category="865">营养滋补</li>
+                        <!--  -->
+                        <li class="div866 swiper-slide" category="866">休闲运动</li>
+                        <!--  -->
+                        <li class="div867 swiper-slide" category="867">礼品卡券</li>
+                        <!--  -->
+
+                    </ul>
+                </nav>
+                <div class="shopping-nav-select j-s-nav-select"><i class="iconfont icon-jiantou"></i></div>
+            </div>
+            <div class="shopping-abs swiper-scroll">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <!--  -->
+                        <a class="div1" category="1">图书音像</a>
+                        <!--  -->
+                        <a class="div3" category="3">手机数码</a>
+                        <!--  -->
+                        <a class="div4" category="4">电脑办公</a>
+                        <!--  -->
+                        <a class="div5" category="5">家居家纺</a>
+                        <!--  -->
+                        <a class="div6" category="6">男装女装</a>
+                        <!--  -->
+                        <a class="div8" category="8">鞋靴箱包</a>
+                        <!--  -->
+                        <a class="div11" category="11">母婴玩具</a>
+                        <!--  -->
+                        <a class="div12" category="12">食品酒水</a>
+                        <!--  -->
+                        <a class="div858" category="858">家用电器</a>
+                        <!--  -->
+                        <a class="div864" category="864">腕表珠宝</a>
+                        <!--  -->
+                        <a class="div863" category="863">保健器械</a>
+                        <!--  -->
+                        <a class="div860" category="860">个人化妆</a>
+                        <!--  -->
+                        <a class="div861" category="861">汽车汽配</a>
+                        <!--  -->
+                        <a class="div865" category="865">营养滋补</a>
+                        <!--  -->
+                        <a class="div866" category="866">休闲运动</a>
+                        <!--  -->
+                        <a class="div867" category="867">礼品卡券</a>
+                        <!--  -->
+                    </div>
+                </div>
+                <div class="swiper-scrollbar"></div>
+            </div>
+        </div>
+        <!-- 店铺列表start -->
+        <div class="store_info">
+
+            <script id="j-product" type="text/html">
+                <%if show %>
+                <%each list as key%>
+
+                <section class="m-top08 padding-all goods-shop b-color-f">
+                    <header class="goods-shop-info">
+                        <a href="<%key.url%>" class="link-abs"></a>
+                        <section class="dis-box">
+                            <div class="g-s-i-img"><img src="<%key.shop_logo%>" /></div>
+                            <div class="g-s-i-title box-flex">
+                                <h3 class="ellipsis-one"><%key.shop_name%></h3>
+                                <p class="t-remark m-top04">已经有 <span class="num<% key.user_id %>"><%key.gaze_number%></span> 人关注</p>
+                            </div>
+                            <div class="g-s-info-add">
+
+                                <a href="javascript:void(0)" class="gaze<% key.user_id %> <% key.gaze_status %>"  onclick="addgaze(<% key.user_id %>)" >关注</a>
+
+                            </div>
+                        </section>
+                        <section class="dis-box goods-shop-score m-top12">
+                            <p class="box-flex">
+                                <label class="fl">商品</label><span class="<%key.commentrank_bg%> margin-lr fl"><%key.commentrank%>分</span><em class="em-promotion fl <%key.commentrank_box%>"><%key.commentrank_font%></em></p>
+                            <p class="box-flex">
+                                <label class="fl">服务</label><span class="<%key.commentserver_bg%> margin-lr fl"><%key.commentserver%>分</span><em class="em-promotion fl <%key.commentserver_box%>"><%key.commentserver_font%></em></p>
+                            <p class="box-flex">
+                                <label class="fl">时效</label><span class="<%key.commentdelivery_bg%> margin-lr fl"><%key.commentdelivery%>分</span><em class="em-promotion fl <%key.commentdelivery_box%>"><%key.commentdelivery_font%></em></p>
+                        </section>
+                    </header>
+
+                    <%if key.goods %>
+                    <section class="goods-shop-pic of-hidden">
+                        <h4 class="title-hrbg m-top06"><span><%key.title%></span><hr> </h4>
+                        <div class="g-s-p-con product-one-list of-hidden scrollbar-none j-g-s-p-con">
+                            <div class="swiper-wrapper ">
+                                <!-- 商品列表 -->
+                                <%each key.goods as list %>
+                                <li class="swiper-slide">
+                                    <div class="product-div">
+                                        <a class="product-div-link" href="<%list.goods_url%>"></a>
+                                        <img class="product-list-img" src="<%list.goods_img%>" />
+                                        <div class="product-text m-top06">
+                                            <h4><%list.goods_name%></h4>
+                                            <p><span class="p-price t-first ">
+													<%if list.is_promote && list.gmt_end_time %>
+														<% list.promote_price %>
+													<%else%>
+														<% list.shop_price_formated %>
+													<%/if%>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <%/each%>
+                                <!-- 商品列表 end -->
+                            </div>
+                        </div>
+                    </section>
+                    <%/if%>
+                </section>
+                <%/each%>
+                <% else %>
+                <div class="no-div-message">
+                    <i class="iconfont icon-biaoqingleiben"></i>
+                    <p>亲，此处没有内容～！</p>
+                </div>
+                <%/if%>
+            </script>
+        </div>
+        <!-- 店铺列表end -->
+    </div>
+</div>
+<input type="hidden" value="" name="type">
+<input type="hidden" value="1" name="where">
+<input type="hidden" value="" name="wheretype">
+<input type="hidden" value="4" name="maxpage">
+<input type="hidden" value="0" name="page">
+<!--引用js-->
+<script type="text/javascript" src="themes/default/js/swiper-3.2.5.min.js"></script>
+<script type="text/javascript" src="themes/default/js/layer.js"></script>
+<script type="text/javascript" src="themes/default/js/ectouch.js"></script><script type="text/javascript" src="data/assets/script/jquery.json.js"></script>
+<script type="text/javascript" src="data/assets/script/main/common.js"></script>
+<script type="text/javascript" src="data/assets/script/template.js"></script>
+
+<script>
+    /*!
+     @Name：ECTouch infinite js v0.1
+     $Author：carson
+     $Site：http://www.ectouch.cn
+     @Date：2016-01-16
+     @License：MIT
+     $('.aa').infinite({url:'', params:'a=b&c=d'})
+     */
+    ;(function($) {
+        "use strict";
+        var target = null;
+        var locked = false;
+        var opts = {
+            "url": '',
+            "pager": '1',
+            "size": '10',
+            "params": '',
+            "template": '',
+            "type": 'post',
+            "format": 'json',
+            "offset": '100'
+        }
+        var totalPage = 0;
+
+        var methods = {
+            // 初始化
+            init: function(options) {
+                target = $(this);
+                if (options) {
+                    $.extend(opts, options);
+                }
+                methods.getData();
+                $(window).scroll(methods.checkScroll);
+
+                var method = {};
+                //获取当前页码
+                return method.getPager = function() {
+                    return opts.pager;
+                },
+                    //刷新当前页
+                        method.reload = function() {
+                            methods.getData();
+                        },
+                    //重新加载
+                        method.onload = function(options) {
+                            if (options) {
+                                opts.params = options;
+                            }
+                            opts.pager = 1;
+                            methods.getData();
+                        },
+                    //获取总页数
+                        method.getTotalPage = function() {
+                            return totalPage;
+                        },
+                        method
+            },
+
+            // 请求参数
+            getParam: function() {
+                var param = "page=" + opts.pager + "&size=" + opts.size;
+                param = param + "&" + opts.params;
+                return param;
+            },
+
+            // 请求数据
+            getData: function() {
+                locked = true;
+                var depr = (opts.url.indexOf('?') > 0) ? '&' : '?';
+                var url = opts.url + depr + "ts=" + Math.random();
+                $.ajax({
+                    url: url,
+                    type: opts.type,
+                    dataType: opts.format,
+                    data: methods.getParam(),
+                    async: false,
+                    success: function(data) {
+                        totalPage = data.totalPage == 'undefind' ? 0 : data.totalPage;
+                        template.config('openTag', '<%');
+                        template.config('closeTag', '%>');
+                        var html = template(opts.template, data);
+                        if (opts.pager > 1) {
+                            target.append(html);
+                        } else {
+                            target.html(html);
+                        }
+                        opts.pager++;
+                        locked = false;
+                        var swiper = new Swiper('.j-g-s-p-con', {
+                            scrollbarHide: true,
+                            slidesPerView: 'auto',
+                            centeredSlides: false,
+                            grabCursor: true
+                        });
+                    }
+                });
+            },
+
+            // 监听滚动
+            checkScroll: function() {
+                var scrollTop = $(window).scrollTop() + parseInt(opts.offset);
+                var documentHeight = $(document).height() - $(window).height();
+                if (scrollTop >= documentHeight && opts.pager <= totalPage && locked == false) {
+                    methods.getData();
+                }
+            },
+
+        }
+
+        // $.fn.infinite = function(options) {
+        // return init(options, $(this));
+        // }
+
+        $.fn.infinite = function(method) {
+            if (methods[method]) {
+                return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
+            } else if (typeof method == 'object' || !method) {
+                return methods.init.apply(this, arguments);
+            } else {
+                $.error('Method ' + method + ' does not exist!');
+            }
+        }
+    })(jQuery)
+</script>
+<script>
+    //店铺街分类
+    var page = $("input[name=page]").val();
+    var maxpage= $("input[name=maxpage]").val();
+    var now ;
+    var fixed ;
+    var sys;
+    var start ;
+    var where = $("input[name=where]").val();
+    var wheretype = $("input[name=wheretype]").val();
+    var type  = $("input[name=type]").val();
+    var active=0;
+    var url = 'http://114.55.140.8/index.php?r=store/index/index';
+    if(type==2){
+        var infinite = $('.store_info').infinite({url: url,params:'type='+type+'&where='+where+'&wheretype='+wheretype, template: 'j-product'});
+    }else {
+        var infinite = $('.store_info').infinite({url: url, template: 'j-product'});
+    }
+
+    var swiper_nav = new Swiper('.shopping-list-nav', {
+        scrollbarHide: true,
+        slidesPerView: 'auto',
+        centeredSlides: false,
+        grabCursor: true
+    });
+
+    $('.shopping-list-nav li').on('click', function(e) {
+        var category = $(this).attr('category');
+        var index = $(".shopping-list-nav li").index(this);
+        $(this).siblings().removeClass("active");
+        $('.shopping-abs .swiper-slide a').removeClass("active");
+
+        $(".div"+category).addClass("active");
+
+        swiper_nav.slideTo(index, 1000, false);//切换到第一个slide，速度为1秒
+
+        infinite.onload('where='+category+'&type=1');
+    })
+
+    $('.shopping-abs .swiper-slide a').on('click', function(e) {
+        var index = $(".shopping-abs .swiper-slide a").index(this);
+        $('.shopping-list-nav li').eq(index).trigger('click');
+        $(".j-shopping-menu").removeClass("active");
+    });
+
+    // function category(clas){
+    // 	if(active!=0 && active!=clas){
+    // 		$(".div"+active).removeClass("active");
+    // 	}
+    // 	active=clas;
+    // 	$(".div"+clas).addClass("active");
+    //
+    //	 // 飞过来
+    //	 console.log(clas);
+    //	 swiper_nav.slideTo(1, 1000, false);//切换到第一个slide，速度为1秒
+    //
+    // 	infinite.onload('where='+clas+'&type=1');
+    //	 var swiper = new Swiper('.j-g-s-p-con', {
+    //		 scrollbarHide: true,
+    //		 slidesPerView: 'auto',
+    //		 centeredSlides: false,
+    //		 grabCursor: true
+    //
+    //	 });
+    //
+    // }
+
+    function addgaze(shop){
+        if(shop!=''){
+            $.post('http://114.55.140.8/index.php?r=store/index/add_collect', {shopid: shop}, function(data){
+                if(data.error==1){
+                    $(".gaze"+shop).addClass("active");
+                }
+                if(data.error==2){
+                    $(".gaze"+shop).removeClass("active");
+                }
+                var num = $(".num"+shop).text();
+                if(data.error==1){
+                    num = num*1 + 1;
+                    $(".num"+shop).text(num);
+                }else if(data.error==2){
+                    if(num>0)
+                    {
+                        num = num*1 - 1;
+                        $(".num"+shop).text(num);
+                    }
+                }
+                if(data.error>0){
+                    d_messages(data.msg);
+                }else {
+                    layer.open({
+                        content: '请登录后关注该店铺',
+                        btn: ['立即登录', '取消'],
+                        shadeClose: false,
+                        yes: function () {
+                            window.location.href = 'http://114.55.140.8/index.php?r=user/login';
+                        },
+                        no: function () {
+                        }
+                    });
+                }
+            }, 'json');
+        }
+    }
+
+    /*店铺信息商品滚动*/
+    // var swiper = new Swiper('.j-f-n-c-prolist', {
+    // 	scrollbarHide: true,
+    // 	slidesPerView: 'auto',
+    // 	centeredSlides: false,
+    // 	grabCursor: true
+    // });
+
+    /*商品详情相册切换*/
+    var swiper = new Swiper('.goods-photo', {
+        paginationClickable: true,
+        onInit: function(swiper) {
+            document.getElementById("g-active-num").innerHTML = swiper.activeIndex + 1;
+            document.getElementById("g-all-num").innerHTML = swiper.slides.length;
+        },
+        onSlideChangeStart: function(swiper) {
+            document.getElementById("g-active-num").innerHTML = swiper.activeIndex + 1;
+        }
+    });
+    /*店铺信息商品滚动*/
+    var swiper = new Swiper('.j-g-s-p-con', {
+        scrollbarHide: true,
+        slidesPerView: 'auto',
+        centeredSlides: false,
+        grabCursor: true
+
+    });
+
+</script>
+</body>
+
+</html>

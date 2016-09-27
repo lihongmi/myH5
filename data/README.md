@@ -1,0 +1,1 @@
+部署时可将静态资源目录进行域名绑定，如 cdn.ectouch.cn 或 static.ectouch.cn，也可以通过其他方式实现静态文件独立部署。范例；http://static.ectouch.cn/assets/css/bootstrap.min.csshttp://static.ectouch.cn/attachment/201510/abc.pnghttp://static.ectouch.cn/avatar/201510/123.png

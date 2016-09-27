@@ -1,0 +1,731 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta charset="utf-8">
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <title>品质保证</title>
+    <link href="themes/default/css/jquery-ui-1.10.1.custom.min.css" rel="stylesheet" />
+    <!--字体图标库-->
+    <link rel="stylesheet" href="themes/default/fonts/iconfont.css">
+    <link rel="stylesheet" href="themes/default/css/swiper-3.2.5.min.css">
+    <link rel="stylesheet" href="themes/default/css/zyUpload.css" />
+
+    <!--主样式-->
+    <link rel="stylesheet" href="themes/default/css/ectouch.css" />
+    <script type="text/javascript" src="themes/default/js/jquery-2.1.4.min.js"></script>
+</head>
+    <body class="">
+<div class="filter-top" id="scrollUp">
+    <i class="iconfont icon-jiantou"></i>
+</div>
+<div class="filter-menu">
+    <div class="filter-menu-list ts-5">
+        <ul class="dis-box">
+            <li class="box-flex position-rel">
+                <a href="index.html" class="product-div-link"></a>
+                <i class="iconfont icon-home"></i><em>首页</em>
+            </li>
+            <li class="box-flex position-rel">
+                <a href="sort.html" class="product-div-link"></a>
+                <i class="iconfont icon-caidan"></i><em>分类</em>
+            </li>
+            <li class="box-flex j-search-input position-rel">
+                <i class="iconfont icon-sousuo"></i><em>搜索</em>
+            </li>
+            <li class="box-flex filter-nenu-cart position-rel">
+                <a href="cart.html" class="product-div-link"></a>
+                <i class="iconfont icon-gouwuche"></i><em>购物车</em>
+            </li>
+            <li class="box-flex position-rel">
+                                <a href="personal.html" class="product-div-link"></a>
+                <i class="iconfont icon-geren"></i><em>我</em>
+                            </li>
+            <li class="w"></li>
+        </ul>
+    </div>
+    <div class="filter-menu-title"></div>
+</div><div class="search-div j-search-div ts-3">
+    <section class="search">
+        <form action="/mobile/index.php?r=category/index/products&" method="post" id="search-form">
+        <div class="text-all dis-box j-text-all text-all-back">
+            <a class="a-icon-back j-close-search" href="javascript:;"><i class="iconfont icon-back"></i></a>
+            <div class="box-flex input-text">
+                <label class="search-check j-search-check" data="2">
+                    <span>商品</span><i class="iconfont icon-xiajiantou"></i>
+                </label>
+                <input class="j-input-text" type="text" name="keyword" placeholder="商品/店铺搜索" />
+                <input type="hidden" name="type_select" value="2" />
+                <input type="hidden" name="isself" value="" />
+                <input type="hidden" name="brand" value="" />
+                <input type="hidden" name="price_min" value="" />
+                <input type="hidden" name="price_max" value="" />
+                <input type="hidden" name="filter_attr" value=""/>
+                <i class="iconfont icon-guanbi is-null j-is-null"></i>
+            </div>
+            <a type="button" class="btn-submit" onclick="$('#search-form').submit()">搜索</a>
+        </div>
+        </form>
+    </section>
+    <section class="search-con">
+        <div class="swiper-scroll history-search">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <p>
+                        <label class="fl">热门搜索</label>
+                    </p>
+                    <ul class="hot-search a-text-more">
+                                                <li class="w-3"><a href=""><span>周大福</span></a></li>
+                                                <li class="w-3"><a href=""><span>内衣</span></a></li>
+                                                <li class="w-3"><a href=""><span>Five Plus</span></a></li>
+                                                <li class="w-3"><a href=""><span>手机</span></a></li>
+                                            </ul>
+                    <p class="hos-search">
+                        <label class="fl">最近搜索</label>
+                        <span class="fr clear_history"><i class="iconfont icon-xiao10"></i></span>
+                    </p>
+                                        <div class="no-div-message">
+                        <p>暂无搜索记录</p>
+                    </div>
+                                    </div>
+            </div>
+        <div class="swiper-scrollbar"></div>
+        </div>
+    </section>
+    <footer class="close-search j-close-search">
+        点击关闭
+    </footer>
+</div>
+<script type="text/javascript">
+    $(function(){
+        //清除搜索记录
+        var history = "";
+        $(".clear_history").click(function(){
+            if(history && $("ul#search-con").length > 0){
+                $.get("index.php?r=category/index/clear_history", '', function(data){
+                    if(data.status){
+                        $("#search-con").remove();
+                        var no = '<div class="no-div-message"><p>暂无搜索记录</p></div>';
+                        $(".hos-search").after(no);
+                    }
+                }, 'json');
+            }
+        });
+    })
+</script>    <!--<div id="loading"><img src="themes/default/img/loading.gif" /></div>--><div class="con">
+        <div class="ect-header-banner dis-box">
+        <a href="javascript:;"><i class="iconfont icon-guanbi1"></i></a>
+        <div class="box-flex">
+            <img src="themes/default/img/more_icon.png" class="fl" />
+            <div class="ect-header-text fl">
+                <h4>享受更加流畅的商城体验</h4>
+                <p>赶快下载ECJia多商户APP</p>
+            </div>
+        </div>
+        <a class="btn-submit1" href="">立即下载</a>
+    </div>
+        <div class="index-banner swiper-container box position-rel banner-first">
+        <div class="swiper-wrapper">
+                </div>
+        <!-- 分页器 -->
+        <div class="swiper-pagination br-half text-c banner-first-pagination"></div>
+        <!--search-->
+        <section class="search box banner-search">
+            <div class="text-all position-rel dis-box j-text-all">
+                <div class="search-logo"><img src="themes/default/img/d_logo.png" /></div>
+                <div class="box-flex input-text n-input-text i-search-input">
+                    <a class="a-search-input j-search-input" href="#open_search"></a>
+                    <i class="iconfont icon-sousuo"></i>
+                    <input class="j-input-text" type="text" placeholder="商品/店铺搜索">
+                    <i class="iconfont icon-guanbi is-null j-is-null"></i>
+                </div>
+                <div class="search-left">
+                    <a href="sort.html"><i class="iconfont icon-caidan"></i>
+                        <p>分类</p></a>
+                </div>
+            </div>
+        </section>
+        <!--linear-->
+        <div class="linear"></div>
+    </div>
+    <!--menu-->
+    <nav class="bg-white ptb-1 index-nav mb-1">
+        <ul class="box ul-4 text-c bg-white">
+			
+                        <li>
+                <a href="sort.html">
+                    <img src="themes/default/img/iconfont-dpfl1.png">
+                    <p>全部分类</p>
+                </a>
+			</li>
+                        <li>
+                <a href="store-street.html">
+                    <img src="themes/default/img/iconfont-dpj.png">
+                    <p>店铺街</p>
+                </a>
+			</li>
+                        <li>
+                <a href="cart.html">
+                    <img src="themes/default/img/iconfont-gwc.png">
+                    <p>购物车</p>
+                </a>
+			</li>
+                        <li>
+                <a href="personal.html">
+                    <img src="themes/default/img/iconfont-user.png">
+                    <p>个人中心</p>
+                </a>
+			</li>
+                        <li>
+                <a href="personal.html">
+                    <img src="themes/default/img/iconfont-wdgz.png">
+                    <p>我的关注</p>
+                </a>
+			</li>
+                        <li>
+                <a href="personal.html">
+                    <img src="themes/default/img/iconfont-wddd.png">
+                    <p>我的订单</p>
+                </a>
+			</li>
+                        <li>
+                <a href="personal.html">
+                    <img src="themes/default/img/iconfont-zjgl.png">
+                    <p>资金管理</p>
+                </a>
+			</li>
+                        <li>
+                <a href="service.html">
+                    <img src="themes/default/img/iconfont-dpj.png">
+                    <p>客户服务</p>
+                </a>
+			</li>
+            			
+        </ul>
+    </nav>
+    <script type="text/javascript" src="data/assets/script/main/lefttime.js"></script>
+    <script type="text/javascript">
+        var gmt_end_time = 1481825340;
+        var day = '<em class="color-whie hour">';
+        var hour = '</em> : <em class="color-whie mini">';
+        var minute = '</em> : <em class="color-whie sec">';
+        var second = '</em>';
+        var end = '';
+        onload = function(){
+            try {onload_leftTime();}
+            catch (e) {}
+        }
+    </script>
+    <!--discount-->
+    <div class="box mb-1 title inx-ms">
+        <div class="box padding-all b-color-f">
+            <h3 class="color-red position-rel" >
+                <span class="fl inx-ms-time">限时<i class="iconfont">&#xe60b;</i>秒杀</span>
+                <span class="color-dark" id="leftTime"></span>
+                <span class="t-jiantou t-remark fr"><a href="">更多<i class="iconfont icon-more"></i></a></span>
+            </h3>
+
+        </div>
+        <div class="dis-box m-top1px b-color-f">
+            <div class="box-flex title text-c bd bd-top-none pt-1 position-rel">
+                <!--  -->
+                <!--  -->
+                <a href="detail.html">
+                    <img src="http://114.55.140.8/images/201512/thumb_img/421_thumb_G_1450120193697.jpg" class="img" />
+                </a>
+                <!--  -->
+                <!--  -->
+                <!--  -->
+                <!--  -->
+                <!--  -->
+                <!--  -->
+                <!--  -->
+                <!--  -->
+                <!--  -->
+                <!--  -->
+            </div>
+            <div class="box-flex ">
+                <ul class="ul-2 index-discount">
+                    <!---->
+                    <!--  -->
+                    <!-- -->
+                    <!--  -->
+                    <li class="">
+                        <a href="detail.html">
+                            <img src="http://114.55.140.8/images/201512/thumb_img/478_thumb_G_1451090335895.jpg" />
+                            <p> ¥756.00</p>
+                        </a>
+                    </li>
+                    <!--  -->
+                    <!-- -->
+                    <!--  -->
+                    <li class="">
+                        <a href="detail.html">
+                            <img src="http://114.55.140.8/images/201512/thumb_img/464_thumb_G_1451069256998.jpg" />
+                            <p> ¥65.00</p>
+                        </a>
+                    </li>
+                    <!--  -->
+                    <!-- -->
+                    <!--  -->
+                    <li class="">
+                        <a href="detail.html">
+                            <img src="http://114.55.140.8/images/201512/thumb_img/371_thumb_G_1450049775495.jpg" />
+                            <p> ¥219.00</p>
+                        </a>
+                    </li>
+                    <!--  -->
+                    <!-- -->
+                    <!--  -->
+                    <li class="">
+                        <a href="detail.html">
+                            <img src="http://114.55.140.8/images/201512/thumb_img/326_thumb_G_1451437687535.jpg" />
+                            <p> ¥150.00</p>
+                        </a>
+                    </li>
+                    <!--  -->
+                    <!--  -->
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--banner2-->
+    <div class="index-banner swiper-container box mb-1 banner-second">
+        <div class="swiper-wrapper">
+                    </div>
+        <!-- 分页器 -->
+        <div class="swiper-pagination br-half text-c banner-second-pagination"></div>
+    </div>
+
+    <!--recom-->
+    <div class="bg-white mb-1 pb-2 idx-padding">
+        <div class="box padding-all b-color-f">
+            <h3 class="recom-title">
+                精品推荐
+                <span>精品商品尽收眼底赶快行动吧</span>
+                <span class="t-jiantou t-remark fr"><a href="">更多<i class="iconfont icon-more"></i></a></span>
+            </h3>
+        </div>
+        <div class="swiper-container recom-container">
+            <div class="swiper-wrapper">
+                <ul class="swiper-slide recom-list">
+                    <!--  -->
+                    <li>
+                        <a href="detail.html">
+                            <img src="http://114.55.140.8/images/201512/thumb_img/7_thumb_G_1450120026360.jpg" />
+                            <p class="index-name">媞沫 2014夏装新品女装 宽松假两件蝙蝠短袖印花雪纺衫 粉色 S</p>
+                            <p class="index-price">¥59.00</p>
+                        </a>
+                    </li>
+                    <!--  -->
+                <!--  -->
+                    <li>
+                        <a href="detail.html">
+                            <img src="http://114.55.140.8/images/201509/thumb_img/239_thumb_G_1441564004873.jpg" />
+                            <p class="index-name">华为 荣耀畅玩4C 8G（ROM）手机 白色 移动4G 标配版</p>
+                            <p class="index-price">¥998.00</p>
+                        </a>
+                    </li>
+                    <!--  -->
+                <!--  -->
+                    <li>
+                        <a href="detail.html">
+                            <img src="http://114.55.140.8/images/201512/thumb_img/450_thumb_G_1451011856282.jpg" />
+                            <p class="index-name">海俪恩 新款偏光太阳眼镜 男款时尚潮流墨镜 防紫外线太阳镜驾驶镜 男 N6273 方框75蓝紫色</p>
+                            <p class="index-price">¥0.00</p>
+                        </a>
+                    </li>
+                    <!--  -->
+                </ul><ul class="swiper-slide recom-list">
+                <!--  -->
+                <!--  -->
+                    <li>
+                        <a href="detail.html">
+                            <img src="http://114.55.140.8/images/201512/thumb_img/421_thumb_G_1450120193697.jpg" />
+                            <p class="index-name">轻雅多维营养代餐粉 果蔬纤维 膳食纤维 魔芋粉产品低卡纤体奶昔饱腹非左旋肉碱减肥16天量</p>
+                            <p class="index-price"> ¥75.00</p>
+                        </a>
+                    </li>
+                    <!--  -->
+                <!--  -->
+                    <li>
+                        <a href="detail.html">
+                            <img src="http://114.55.140.8/images/201512/thumb_img/474_thumb_G_1451089812126.jpg" />
+                            <p class="index-name">乐视超级电视 第3代X43（X3-43）43英寸2D智能LED液晶电视(L433LN或L432LN)</p>
+                            <p class="index-price"> ¥1500.00</p>
+                        </a>
+                    </li>
+                    <!--  -->
+                <!--  -->
+                    <li>
+                        <a href="detail.html">
+                            <img src="http://114.55.140.8/images/201512/thumb_img/5_thumb_G_1450119746605.jpg" />
+                            <p class="index-name">美乐汀 2014新款女装翻领蕾丝提花镂空连衣裙 图片色 M</p>
+                            <p class="index-price">¥85.00</p>
+                        </a>
+                    </li>
+                    <!--  -->
+                </ul><ul class="swiper-slide recom-list">
+                <!--  -->
+                <!--  -->
+                    <li>
+                        <a href="detail.html">
+                            <img src="http://114.55.140.8/images/201407/thumb_img/9_thumb_G_1405014034403.jpg" />
+                            <p class="index-name">薇洛依2014夏装新款韩版女时尚潮款修身百搭显瘦洞小脚铅笔牛仔裤 26/1尺9</p>
+                            <p class="index-price"> ¥139.00</p>
+                        </a>
+                    </li>
+                    <!--  -->
+                <!--  -->
+                    <li>
+                        <a href="detail.html">
+                            <img src="http://114.55.140.8/images/201407/thumb_img/10_thumb_G_1405014134667.jpg" />
+                            <p class="index-name">鸥牧(ONMILE)2014夏季新款韩版休闲修身显瘦大码哈伦七分裤XSX044 黑色 S</p>
+                            <p class="index-price">¥79.00</p>
+                        </a>
+                    </li>
+                    <!--  -->
+                <!--  -->
+                    <li>
+                        <a href="detail.html">
+                            <img src="http://114.55.140.8/images/201407/thumb_img/12_thumb_G_1405014314398.jpg" />
+                            <p class="index-name">【2014特供】INSUN恩裳2014春装新款不规则时尚毛织衫货到付款顺丰93106175 蓝色 42/XL</p>
+                            <p class="index-price">¥836.00</p>
+                        </a>
+                    </li>
+                    <!--  -->
+                </ul><ul class="swiper-slide recom-list">
+                <!--  -->
+                <!--  -->
+                    <li>
+                        <a href="detail.html">
+                            <img src="http://114.55.140.8/images/201512/thumb_img/15_thumb_G_1450312296467.jpg" />
+                            <p class="index-name">衣菲舞2014夏季新品韩版短袖刺绣连衣裙女 JYY9182 黑色 M</p>
+                            <p class="index-price">¥169.00</p>
+                        </a>
+                    </li>
+                    <!--  -->
+                <!--  -->
+            </ul>
+            </div>
+            <!-- 分页器 -->
+            <div class="swiper-pagination recom-pagination"></div>
+        </div>
+    </div>
+    <!--hot-->
+    <div class="box mb-1 b-color-f" style="display:none;">
+        <div class="box padding-all  wallet-bt">
+            <h3 class="recom-title">
+                热门大牌
+                <span>最全最时尚的大牌汇集</span>
+                <span class="t-jiantou t-remark fr">更多<i class="iconfont icon-more"></i></span>
+            </h3>
+        </div>
+        <div class="hot-container-div">
+            <i class="iconfont icon-back"></i>
+            <div class="swiper-container hot-container">
+                <ul class="swiper-wrapper">
+                    <!--  -->
+                    <li class="swiper-slide ">
+                        <a href="javascript:; ">
+                            <img src="data/brandlogo/1445377993450467404.jpg" />
+                        </a>
+                    </li>
+                    <!--  -->
+                    <li class="swiper-slide ">
+                        <a href="javascript:; ">
+                            <img src="data/brandlogo/1395689623918543922.jpg" />
+                        </a>
+                    </li>
+                    <!--  -->
+                    <li class="swiper-slide ">
+                        <a href="javascript:; ">
+                            <img src="data/brandlogo/1395689612574511661.jpg" />
+                        </a>
+                    </li>
+                    <!--  -->
+                    <li class="swiper-slide ">
+                        <a href="javascript:; ">
+                            <img src="data/brandlogo/1395689600757717807.jpg" />
+                        </a>
+                    </li>
+                    <!--  -->
+                    <li class="swiper-slide ">
+                        <a href="javascript:; ">
+                            <img src="data/brandlogo/1395689585998776334.jpg" />
+                        </a>
+                    </li>
+                    <!--  -->
+                    <li class="swiper-slide ">
+                        <a href="javascript:; ">
+                            <img src="data/brandlogo/1395689574194483005.jpg" />
+                        </a>
+                    </li>
+                    <!--  -->
+                    <li class="swiper-slide ">
+                        <a href="javascript:; ">
+                            <img src="data/brandlogo/1395689562271644384.jpg" />
+                        </a>
+                    </li>
+                    <!--  -->
+                    <li class="swiper-slide ">
+                        <a href="javascript:; ">
+                            <img src="data/brandlogo/1395689549503390712.jpg" />
+                        </a>
+                    </li>
+                    <!--  -->
+                    <li class="swiper-slide ">
+                        <a href="javascript:; ">
+                            <img src="data/brandlogo/1450665271328421678.jpg" />
+                        </a>
+                    </li>
+                    <!--  -->
+                    <li class="swiper-slide ">
+                        <a href="javascript:; ">
+                            <img src="data/brandlogo/1395689525195193893.jpg" />
+                        </a>
+                    </li>
+                    <!--  -->
+                    <li class="swiper-slide ">
+                        <a href="javascript:; ">
+                            <img src="data/brandlogo/1395689508686683596.jpg" />
+                        </a>
+                    </li>
+                    <!--  -->
+                    <li class="swiper-slide ">
+                        <a href="javascript:; ">
+                            <img src="data/brandlogo/1395687076229565549.jpg" />
+                        </a>
+                    </li>
+                    <!--  -->
+                    <li class="swiper-slide ">
+                        <a href="javascript:; ">
+                            <img src="data/brandlogo/1395687067884972599.jpg" />
+                        </a>
+                    </li>
+                    <!--  -->
+                    <li class="swiper-slide ">
+                        <a href="javascript:; ">
+                            <img src="data/brandlogo/1395687057641695945.jpg" />
+                        </a>
+                    </li>
+                    <!--  -->
+                    <li class="swiper-slide ">
+                        <a href="javascript:; ">
+                            <img src="data/brandlogo/1395687046585353413.jpg" />
+                        </a>
+                    </li>
+                    <!--  -->
+                    <li class="swiper-slide ">
+                        <a href="javascript:; ">
+                            <img src="data/brandlogo/1395687036454991638.jpg" />
+                        </a>
+                    </li>
+                    <!--  -->
+                    <li class="swiper-slide ">
+                        <a href="javascript:; ">
+                            <img src="data/brandlogo/1395687025550195832.jpg" />
+                        </a>
+                    </li>
+                    <!--  -->
+                    <li class="swiper-slide ">
+                        <a href="javascript:; ">
+                            <img src="data/brandlogo/1395687012984858382.jpg" />
+                        </a>
+                    </li>
+                    <!--  -->
+                    <li class="swiper-slide ">
+                        <a href="javascript:; ">
+                            <img src="data/brandlogo/1395687002199115282.jpg" />
+                        </a>
+                    </li>
+                    <!--  -->
+                    <li class="swiper-slide ">
+                        <a href="javascript:; ">
+                            <img src="data/brandlogo/1395686989338777478.jpg" />
+                        </a>
+                    </li>
+                    <!--  -->
+                </ul>
+                <!-- 导航按钮 -->
+            </div>	<i class="iconfont icon-more"></i>
+        </div>
+    </div>
+
+    <!--banner3-->
+    <div class="index-banner swiper-container box mb-1 banner-third">
+        <div class="swiper-wrapper">
+                </div>
+        <!-- 分页器 -->
+        <div class="swiper-pagination br-half text-c banner-third-pagination"></div>
+    </div>
+    <!--brand-->
+        <div class="pb-2 idx-padding b-color-f">
+        <div class="box padding-all">
+            <h3 class="recom-title">
+                店铺街
+                <span>精品店铺一条街</span>
+                <span class="t-jiantou t-remark fr"><a href="store-street.html">更多<i class="iconfont icon-more"></i></a></span>
+            </h3>
+        </div>
+        <div class="swiper-container brand-container b-color-f">
+            <div class="swiper-wrapper">
+                <ul class="brand-list swiper-slide">
+                    <!---->
+                    <li>
+                        <a href="sort.html">
+                            <div class="brand-img">
+                                <img src="data/store_street/street_thumb/1451089587740463662.png" />
+                                <div class="brand-logo">
+                                    <img src="data/store_street/brand_thumb/1451089587812528161.jpg"/>
+                                </div>
+                            </div>
+                            <ul class="ul-3">
+                                <!---->
+                                <li>
+                                    <img src="http://114.55.140.8/images/201512/thumb_img/474_thumb_G_1451089812126.jpg" />
+                                </li>
+                                <!---->
+                                <li>
+                                    <img src="http://114.55.140.8/images/201512/thumb_img/478_thumb_G_1451090335895.jpg" />
+                                </li>
+                                <!---->
+                                <li>
+                                    <img src="http://114.55.140.8/images/201512/thumb_img/477_thumb_G_1451090267635.jpg" />
+                                </li>
+                                <!---->
+                            </ul>
+                        </a>
+                    </li>
+                    <!--  -->
+                <!---->
+                    <li>
+                        <a href="store.html">
+                            <div class="brand-img">
+                                <img src="data/store_street/street_thumb/1451087474322505723.png" />
+                                <div class="brand-logo">
+                                    <img src="data/store_street/brand_thumb/1451087564107096039.png"/>
+                                </div>
+                            </div>
+                            <ul class="ul-3">
+                                <!---->
+                                <li>
+                                    <img src="http://114.55.140.8/images/201512/thumb_img/473_thumb_G_1451088304322.jpg" />
+                                </li>
+                                <!---->
+                                <li>
+                                    <img src="http://114.55.140.8/images/201512/thumb_img/472_thumb_G_1451088043686.jpg" />
+                                </li>
+                                <!---->
+                                <li>
+                                    <img src="http://114.55.140.8/images/201512/thumb_img/471_thumb_G_1451087895685.jpg" />
+                                </li>
+                                <!---->
+                            </ul>
+                        </a>
+                    </li>
+                    <!--  -->
+                <!---->
+            </ul>
+            </div>
+            <!-- 分页器 -->
+            <div class="swiper-pagination brand-pagination"></div>
+        </div>
+    </div>
+        <!--like-->
+    <p class="index-title padding-all text-c">猜你喜欢</p>
+    <section class="product-list j-product-list product-list-medium" data="1">
+		<script id="j-product" type="text/html">
+		<ul>
+			<%each list as goods%>
+			<li>
+				<div class="product-div">
+					<a class="product-div-link" href="<%goods.url%>"></a>
+					<img class="product-list-img" src="<%goods.goods_thumb%>" />
+					<div class="product-text">
+                        <h4><%goods.goods_name%></h4>
+                        <p><span class="p-price t-first "><%if goods.is_promote > 0%><%goods.promote_price%><%else%><%goods.shop_price%><%/if%><small></small></span></p>
+                        <a href="javascript:void(0)" class="icon-flow-cart fr j-goods-attr"><i class="iconfont icon-gouwuche"></i></a>
+                    </div>
+				</div>
+			</li>
+			<%/each%>
+		</ul>
+		</script>
+    </section>
+    <div class="n-footer-box">
+        <ul class="n-footer-minbox">
+            <li>
+                <a href="javascript:;">
+                    <div class="n-footer-img-box"><img src="themes/default//img/footer-a.png"></div>
+                    <p class="footer-tit1">客户端</p>
+                </a>
+            </li>
+            <li>
+                <a href="javascript:;">
+                    <div class="n-footer-img-box"><img src="themes/default//img/footer-c.png"></div>
+                    <p class="footer-tit">触屏版</p>
+                </a>
+            </li>
+            <li>
+                <a href="http://114.55.140.8">
+                    <div class="n-footer-img-box"><img src="themes/default//img/footer-b.png"></div>
+                    <p class="footer-tit1">电脑版</p>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <footer class="padding-all text-center t-remark">
+        &copy; 2005-2016 加秒 版权所有，并保留所有权利。    </footer>
+</div>
+<script type="text/javascript" src="themes/default/js/swiper-3.2.5.min.js"></script>
+<script type="text/javascript" src="themes/default/js/layer.js"></script>
+<script type="text/javascript" src="themes/default/js/ectouch.js"></script><!-- jquery-ui-1.10.1.custom.min.js和jquery.ui.touch-punch.min.js使jquery 拥有手机touch事件-->
+<script src="themes/default/js/jquery-ui-1.10.1.custom.min.js " type="text/javascript "></script>
+<script src="themes/default/js/jquery.ui.touch-punch.min.js "></script>
+<script type="text/javascript" src="data/assets/script/jquery.infinite.js"></script>
+<script type="text/javascript" src="data/assets/script/template.js"></script>
+
+<!--script for this page only-->
+<script type="text/javascript " src="themes/default/js/jquery.scrollUp.min.js "></script>
+<script type="text/javascript ">
+    $(function($) {
+        var mySwiper = new Swiper('.banner-first', {
+            autoplay: 4000,
+            pagination: '.banner-first-pagination'
+        });
+        var mySwiper = new Swiper('.banner-second', {
+            autoplay: 5000,
+            pagination: '.banner-second-pagination'
+        });
+        var mySwiper = new Swiper('.banner-third', {
+            autoplay: 5000,
+            pagination: '.banner-third-pagination'
+        });
+        var mySwiper = new Swiper('.recom-container', {
+            pagination: '.recom-pagination',
+            slidesPerView: 1,
+            paginationClickable: true
+        });
+        var mySwiper = new Swiper('.brand-container', {
+            pagination: '.brand-pagination',
+            slidesPerView: 1,
+            paginationClickable: true
+        });
+        var mySwiper = new Swiper('.hot-container', {
+            slidesPerView: 4,
+            paginationClickable: true,
+            nextButton: '.swiper-button-next',
+            prevButton: '.swiper-button-prev'
+        });
+    });
+	var url = "index.php?r=site/Index/async_list";
+	$('.product-list').infinite({url: url, template:'j-product'});
+</script>
+</body>
+</html>
